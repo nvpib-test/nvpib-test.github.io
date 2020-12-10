@@ -135,15 +135,21 @@ and
 <li><a href="https://raw.githubusercontent.com/greentechdev/greentechdev.github.io/master/outdoorlife_api.yaml">Download OpenAPI specification</a></li>
 <li><a href="https://github.com/greentechdev/greentechdev.github.io/edit/master/outdoorlife_api.yaml">Improve this specification</a></li>
 </ul>
-<div class="shortcode shortcode--swagger-ui">
-	<iframe
-		src='https://petstore.swagger.io/?url=https://raw.githubusercontent.com/greentechdev/greentechdev.github.io/master/outdoorlife_api.yaml'
-		frameborder="0"
-		scrolling="yes"
-		width="100%"
-		height='1000'>
-	</iframe>
-</div>
+<style>iframe{width:100%}</style>
+<iframe id="swagger-ui" frameBorder="0" scrolling="no" src="/swagger-ui/index.html" >
+</iframe>
+
+<script type="text/javascript" src="/scripts/iframeResizer.min.js"></script>
+<script type="text/javascript">
+  iFrameResize({
+    log         : true,                  
+    checkOrigin : false,
+    sizeWidth   : true,
+    widthCalculationMethod : 'rightMostElement'
+  });
+  var shortcode_url = "https:\/\/petstore.swagger.io\/?url=https:\/\/raw.githubusercontent.com\/greentechdev\/greentechdev.github.io\/master\/outdoorlife_api.yaml";
+  
+</script>
 
 <h2 id="example-usage">Example usage&nbsp;<a class="headline-anchor" href="#example-usage"><svg class="bi bi-link" width="1em" height="1em" viewBox="0 0 16 16" fill="gray" xmlns="http://www.w3.org/2000/svg">
   <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
