@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sites on Greentechdev</title>
+    <link>/tags/sites/</link>
+    <description>Recent content in sites on Greentechdev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <lastBuildDate>Wed, 10 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/sites/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Natura 2000 sites</title>
+      <link>/data/natura-2000-sites/</link>
+      <pubDate>Wed, 10 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/data/natura-2000-sites/</guid>
+      <description>Natura 2000 sites The Swedish sites as part of the EU-wide Natura 2000 network of protected sites for rare species or habitat types (e.g. special types of forest or grasslands). The sites can be both terrestrial and marine protected areas.
+European Commission on Natura 2000.
+Data quality See the Swedish EPA&amp;rsquo;s metadata catalogue for details: Natura 2000 SCI/SAC and Natura 2000 SPA (Swedish).
+License &amp;amp; conditions The data is licensed under Creative Commons Zero, CC0.</description>
+    </item>
+    
+  </channel>
+</rss>

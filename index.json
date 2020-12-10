@@ -1,0 +1,36 @@
+[
+  {
+"name": "Air quality measurements",
+"updated": "0001-01-01",
+"description" : "Near real-time national air quality data from measuring stations - the air quality data provides information on the levels of various air pollutants, including particles, nitrogen dioxide and ground-level ozone, in Swedish cities and in rural areas.",
+"permalink" : "/data/air-quality-measurements/",
+"tags": ["air","geo"]
+}
+  , {
+"name": "Environmental indicators",
+"updated": "2020-05-23",
+"description" : "Indicators and data related to the national environmental objectives (e.g. fresh air)",
+"permalink" : "/data/environmental-indicators/",
+"tags": ["indicator"]
+}
+  , {
+"name": "Natura 2000 sites",
+"updated": "2020-06-10",
+"description" : "The Swedish sites as part of the Natura 2000 network of protected sites for rare species or habitat types",
+"permalink" : "/data/natura-2000-sites/",
+"tags": ["sites"]
+}
+  , {
+"name": "Naturvårdsregistret, NVR",
+"updated": "2020-10-12",
+"description" : "API for data from the official list of protected nature sites in Sweden",
+"permalink" : "/data/nvr/",
+"tags": ["API","GEO"]
+}
+  , {
+"name": "Trails and devices in outdoor life",
+"updated": "2020-10-06",
+"description" : "Trails and devices (e.g. toilets, parking lots) in national parks or other nature areas",
+"permalink" : "/data/trails-and-devices-in-outdoor-life/",
+"tags": ["API","GEO"]
+}]

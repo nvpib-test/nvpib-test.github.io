@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Greentechdev</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Greentechdev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>API</title>
+      <link>/tags/api/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GEO</title>
+      <link>/tags/geo/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/geo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sites</title>
+      <link>/tags/sites/</link>
+      <pubDate>Wed, 10 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sites/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>indicator</title>
+      <link>/tags/indicator/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/indicator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cookies</title>
+      <link>/tags/cookies/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cookies/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GDPR</title>
+      <link>/tags/gdpr/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/gdpr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/tags/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>air</title>
+      <link>/tags/air/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/air/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Greentechdev</title>
+      <link>/tags/greentechdev/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/greentechdev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Help</title>
+      <link>/tags/help/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/help/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Support</title>
+      <link>/tags/support/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/support/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

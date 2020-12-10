@@ -1,0 +1,1428 @@
+openapi: 3.0.1
+info:
+  title: NVR REST API
+  version: 2.1.0-0
+  description: REST API for Naturvårdsregistret.
+servers:
+  - url: https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest
+
+tags:
+  - name: Sites
+  - name: Documents
+  - name: Environmental objectives
+  - name: Rules
+  - name: Purposes
+  - name: NMD classes
+
+paths:
+
+  /omrade:
+    get:
+      tags:
+        - Sites
+      summary: All NVR sites
+      operationId: omrade
+      parameters:
+        - name: beslutsdatum_from
+          in: query
+          description: Decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: beslutsdatum_tom
+          in: query
+          description: Decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: beslutsmyndighet
+          in: query
+          description: Authority (see /omrade/beslutsmyndigheter)
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+        - name: foreskriftssubtyp
+          in: query
+          description: Rule subtype (see /foreskriftssubtyper)
+          schema:
+            type: string
+        - name: foreskriftstyp
+          in: query
+          description: Rule type (see foreskriftstyper)
+          schema:
+            type: string
+        - name: forstagangsbeslut
+          in: query
+          description: First time decision
+          schema:
+            type: boolean
+        - name: gallandedatum_from
+          in: query
+          description: Current decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: gallandedatum_tom
+          in: query
+          description: Current decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: NVR-id (can be used as a prefix)
+          schema:
+            type: string
+        - name: kommun
+          in: query
+          description: Municipality code ([see skr.se](https://skr.se/tjanster/kommunerochregioner/faktakommunerochregioner/lansregister.2052.html))
+          schema:
+            type: string
+        - name: lan
+          in: query
+          description: Regional code ([see skr.se](https://skr.se/tjanster/kommunerochregioner/faktakommunerochregioner/lansregister.2053.html))
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the output. Max is 1000.
+          schema:
+            type: integer
+            format: int32
+            default: "100"
+        - name: miljomal
+          in: query
+          description: Environmental objective (see /miljomal)
+          schema:
+            type: string
+        - name: namn
+          in: query
+          description: Name of the site. Can be partial.
+          schema:
+            type: string
+            example: Store Mo
+        - name: nmdklasskod
+          in: query
+          description: NMD class code (see /nmdklass)
+          schema:
+            type: string
+        - name: nmdklassniva1kod
+          in: query
+          description: NMD class code on level 1 (see /nmdklass/niva1)
+          schema:
+            type: string
+        - name: nmdklassniva2kod
+          in: query
+          description: NMD class code on level 2 (see /nmdklass/niva2)
+          schema:
+            type: string
+        - name: nmdklassniva3kod
+          in: query
+          description: NMD class code on level 3 (see /nmdklass/niva3)
+          schema:
+            type: string
+        - name: skyddstypkod
+          in: query
+          description: Protection type code (see /omrade/skyddstyper)
+          schema:
+            type: string
+            example: NP
+        - name: skyddstypnamn
+          in: query
+          description: Protection type name (see /omrade/skyddstyper)
+          schema:
+            type: string
+        - name: syfte
+          in: query
+          description: Purpose (see /syften)
+          schema:
+            type: string
+        - name: ursprBeslutsdatum_from
+          in: query
+          description: Original decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: ursprBeslutsdatum_tom
+          in: query
+          description: Original decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Omrade)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Omrade"
+
+  /omrade/nolinks:
+    get:
+      tags:
+        - Sites
+      summary: All NVR sites, without links in the results
+      description: Same as _/omrade_, but without the links data (i.e. the
+        "atom.link"-property).
+      operationId: omrade_nolinks
+      parameters:
+        - name: beslutsdatum_from
+          in: query
+          description: Decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: beslutsdatum_tom
+          in: query
+          description: Decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: beslutsmyndighet
+          in: query
+          description: Authority (see /omrade/beslutsmyndigheter)
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+        - name: foreskriftssubtyp
+          in: query
+          description: Rule subtype (see /foreskriftssubtyper)
+          schema:
+            type: string
+        - name: foreskriftstyp
+          in: query
+          description: Rule type (see foreskriftstyper)
+          schema:
+            type: string
+        - name: forstagangsbeslut
+          in: query
+          description: First time decision
+          schema:
+            type: boolean
+        - name: gallandedatum_from
+          in: query
+          description: Current decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: gallandedatum_tom
+          in: query
+          description: Current decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: NVR-id (can be used as a prefix)
+          schema:
+            type: string
+        - name: kommun
+          in: query
+          description: Municipality code ([see skr.se](https://skr.se/tjanster/kommunerochregioner/faktakommunerochregioner/lansregister.2052.html))
+          schema:
+            type: string
+        - name: lan
+          in: query
+          description: Regional code ([see skr.se](https://skr.se/tjanster/kommunerochregioner/faktakommunerochregioner/lansregister.2053.html))
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the output. Max is 1000.
+          schema:
+            type: integer
+            format: int32
+            default: "100"
+        - name: miljomal
+          in: query
+          description: Environmental objective (see /miljomal)
+          schema:
+            type: string
+        - name: namn
+          in: query
+          description: Name of the site. Can be partial.
+          schema:
+            type: string
+            example: Store Mo
+        - name: nmdklasskod
+          in: query
+          description: NMD class code (see /nmdklass)
+          schema:
+            type: string
+        - name: nmdklassniva1kod
+          in: query
+          description: NMD class code on level 1 (see /nmdklass/niva1)
+          schema:
+            type: string
+        - name: nmdklassniva2kod
+          in: query
+          description: NMD class code on level 2 (see /nmdklass/niva2)
+          schema:
+            type: string
+        - name: nmdklassniva3kod
+          in: query
+          description: NMD class code on level 3 (see /nmdklass/niva3)
+          schema:
+            type: string
+        - name: skyddstypkod
+          in: query
+          description: Protection type code (see /omrade/skyddstyper)
+          schema:
+            type: string
+            example: NP
+        - name: skyddstypnamn
+          in: query
+          description: Protection type name (see /omrade/skyddstyper)
+          schema:
+            type: string
+        - name: syfte
+          in: query
+          description: Purpose (see /syften)
+          schema:
+            type: string
+        - name: ursprBeslutsdatum_from
+          in: query
+          description: Original decision date (from) (yyyy-MM-dd)
+          schema:
+            type: string
+        - name: ursprBeslutsdatum_tom
+          in: query
+          description: Original decision date (to) (yyyy-MM-dd)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Omrade)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Omrade"
+
+  /omrade/extentAsWkt:
+    get:
+      tags:
+        - Sites
+      summary: Combined geographical extent of one or more sites
+      description: Note that the response is in
+        [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)
+        format, encoded as [SWEREF99 TM / EPSG:3006](https://epsg.io/3006).
+
+      operationId: omrade_extentAsWkt
+      parameters:
+        - name: id
+          in: query
+          description: Comma separated list of site NVR ids. E.g.
+            "...?id=2001362&id=2001363".
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+            example: [2001362, 2001362] 
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            text/plain;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/WktString"
+
+  "/omrade/{id}/{status}":
+    get:
+      tags:
+        - Sites
+      summary: A NVR site
+      operationId: omrade_id
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Omrade"
+
+  "/omrade/{id}/{status}/beslutsdokument":
+    get:
+      tags:
+        - Sites
+      summary: All decision documents for a site
+      operationId: omrade_id_beslutsdokument
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Beslutsdokument)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Beslutsdokument"
+
+  "/omrade/{id}/{status}/extentAsWkt":
+    get:
+      tags:
+        - Sites
+      summary: Geographical extent of a site
+      description: Note that the response is in
+        [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)
+        format, encoded as [SWEREF99 TM / EPSG:3006](https://epsg.io/3006).
+      operationId: omrade_id_extentAsWkt
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            text/plain;charset=utf-8:
+              schema:
+                description: The extent of the site as WKT
+                type: string
+
+  "/omrade/{id}/{status}/foreskriftsomraden":
+    get:
+      tags:
+        - Sites
+      summary: All rules for a site
+      operationId: omrade_id_foreskriftsomraden
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Syfte)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Foreskriftsomrade"
+
+  "/omrade/{id}/{status}/miljomal":
+    get:
+      tags:
+        - Sites
+      summary: All environmental objectives for a site
+      operationId: omrade_id_miljomal
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Syfte)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Miljomal"
+
+  "/omrade/{id}/{status}/nmdklasser":
+    get:
+      tags:
+        - Sites
+      summary: All NMD classes for a site
+      operationId: omrade_id_nmdklasser
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(NmdKlass)
+                type: array
+                items:
+                  $ref: "#/components/schemas/NmdKlass"
+
+  "/omrade/{id}/{status}/syften":
+    get:
+      tags:
+        - Sites
+      summary: All purposes for a site
+      operationId: omrade_id_syften
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Syfte)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Syfte"
+
+  "/omrade/{id}/{status}/wkt":
+    get:
+      tags:
+        - Sites
+      summary: Geographical representation of a site
+      operationId: omrade_id_wkt
+      parameters:
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            text/plain;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/WktString"
+
+  /omrade/beslutsstatusar:
+    get:
+      tags:
+        - Sites
+      summary: A list of all decision status codes
+      description: >
+        To be used in path parameter *{status}* and query parameter *beslutsstatus*
+
+         * `Gällande` = Current - the site has gained legal force
+         * `Beslutad` = Decided - the site has been decided but not yet gained legal force
+         * `Överklagad` = Appealed - the decision for the site has been appealed
+      operationId: omrade_beslutsstatusar
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Beslutsstatus"
+
+  /omrade/beslutsmyndigheter:
+    get:
+      tags:
+        - Sites
+      summary: A list of all types of authorites
+      description: >
+        To be used in query parameter *beslutsmyndighet*.
+        
+          * `Domstol` = Court
+          * `Kommun` = Municipality
+          * `Länsstyrelse` = County
+          * `Naturvårdsverket` = Swedish EPA
+          * `Riksdag`/regering = Parliament/Government
+          * `Skogsstyrelsen` = Swedish Forest Agency
+          * `Vattendomstol` = Water court
+      operationId: omrade_beslutsmyndigheter
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  /omrade/skyddstyper:
+    get:
+      tags:
+        - Sites
+      summary: A list of all protection types
+      description: To be used in query parameter *skyddstypnamn* or *skyddstypkod* fields
+      operationId: omrade_skyddstyper
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  "/beslutsdokument/{nvrId}/{status}/{id}":
+    get:
+      tags:
+        - Documents
+      summary: Returns a specific decision document for a site
+      description: Use /omrade/{nvrId}/{status}/beslutsdokument for a complete list of documents for a site
+      operationId: beslutsdokument_nvrid
+      parameters:
+        - name: status
+          in: path
+          description: Decision status
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: Id of the document
+          schema:
+            type: string
+          required: true
+          example: 231632
+        - name: nvrId
+          in: path
+          description: NVR-id for the site
+          schema:
+            type: string
+          required: true
+          example: 2001362
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beslutsdokument"
+
+  "/foreskriftsomrade/{nvrId}/{status}/{objectid}":
+    get:
+      tags:
+        - Rules
+      summary:  Returns a specific rule for a site
+      description: Use /omrade/{nvrId}/{status}/foreskriftsomraden for a complete list of rules for a site
+      operationId: foreskriftsomrade_nvrid
+      parameters:
+        - name: status
+          in: path
+          description: Decision status for this site
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: nvrId
+          in: path
+          description: NVR-id for a site
+          schema:
+            type: string
+          required: true
+          example: 2001362
+        - name: objectid
+          in: path
+          description: Id for this rule
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Foreskriftsomrade"
+
+  /foreskriftstyper:
+    get:
+      tags:
+        - Rules
+      summary: A list of all rule types
+      description: To be used in query parameter *foreskriftstyp*
+      operationId: foreskriftstyper
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  /foreskriftssubtyper:
+    get:
+      tags:
+        - Rules
+      summary: A list of all rule subtypes
+      description: To be used in query parameter *foreskriftssubtyp*
+      operationId: foreskriftssubtyper
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+              examples:
+                response:
+                  value:
+                    - key: ...
+                      value: ...
+
+  /miljomal:
+    get:
+      tags:
+        - Environmental objectives
+      summary: A list of all environmental objectives
+      description: To be used in query parameter *miljomal*
+      operationId: miljomal
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  "/miljomal/{nvrId}/{status}/{namn}":
+    get:
+      tags:
+        - Environmental objectives
+      summary: A single environmental objective for a site
+      description: Use /omrade/{nvrId}/{status}/miljomal for a complete list of objectives for a site
+      operationId: miljomal_nvrid
+      parameters:
+        - name: status
+          in: path
+          description: Decision status
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: namn
+          in: path
+          description: Name of this environmental objective
+          schema:
+            type: string
+          required: true
+          example: 12. Levande skogar
+        - name: nvrId
+          in: path
+          description: NVR-id of site
+          schema:
+            type: string
+          required: true
+          example: 2001362
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Miljomal"
+
+  /nmdklass:
+    get:
+      tags:
+        - NMD classes
+      summary: A list of all NMD classes
+      description: To be used in query parameter *nmdklass*
+      operationId: nmdklass
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List<Typ>
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  /nmdklass/niva1:
+    get:
+      tags:
+        - NMD classes
+      summary: A list of all NMD classes on level 1
+      description: To be used in query parameter *nmdklassniva1*
+      operationId: nmdklass_niva1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List<Typ>
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  /nmdklass/niva2:
+    get:
+      tags:
+        - NMD classes
+      summary: A list of all NMD classes on level 2
+      description: To be used in query parameter *nmdklassniva2*
+      operationId: nmdklass_niva2
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List<Typ>
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  /nmdklass/niva3:
+    get:
+      tags:
+        - NMD classes
+      summary: A list of all NMD classes on level 3
+      description: To be used in query parameter *nmdklassniva1*
+      operationId: nmdklass_niva3
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List<Typ>
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+  "/nmdklass/{nvrId}/{status}/{nmdKlassKod}":
+    get:
+      tags:
+        - NMD classes
+      summary: A specific NMD class for a site
+      operationId: nmdklass_nvrid
+      parameters:
+        - name: status
+          in: path
+          description: Decision status
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: nmdKlassKod
+          in: path
+          description: NMD class code
+          schema:
+            type: string
+          required: true
+          example: 111
+        - name: nvrId
+          in: path
+          description: NVR-id of site
+          schema:
+            type: string
+          required: true
+          example: 2001362
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NmdKlass"
+
+  "/syfte/{nvrId}/{status}/{id}":
+    get:
+      tags:
+        - Purposes
+      description: Returnerar ett syfte för ett specifikt område
+      operationId: syfte_nvrid
+      parameters:
+        - name: nvrId
+          in: path
+          description: NVR-id
+          schema:
+            type: string
+            example: 2001362
+          required: true
+        - name: status
+          in: path
+          description: Decision status (see /omrade/beslutsstatusar)
+          schema:
+            $ref: "#/components/schemas/Beslutsstatus"
+          required: true
+        - name: id
+          in: path
+          description: Id of the purpose
+          schema:
+            type: string
+            example: 2.21.47.55
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Syfte"
+
+  /syften:
+    get:
+      tags:
+        - Purposes
+      summary: A list of purposes
+      description: To be used in query paramter *syfte*
+      operationId: syften
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                description: List(Typ)
+                type: array
+                items:
+                  $ref: "#/components/schemas/Typ"
+
+components:
+  schemas:
+    Beslutsdokument:
+      type: object
+      title: Decision document
+      properties:
+        nvrId:
+          description: NVR-id of site
+          type: string
+        beslutsId:
+          description: Id of decision
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        beslutstyp:
+          description: Decision type
+          type: string
+        beslutsmyndighet:
+          description: Authority
+          type: string
+        diarienummer:
+          description: Registration number
+          type: string
+        beslutsdatum:
+          description: Decision date
+          type: integer
+          format: int32
+        gallandedatum:
+          description: Current decision date
+          type: integer
+          format: int32
+        id:
+          description: Id of document
+          type: string
+        namn:
+          description: Name of document
+          type: string
+        typ:
+          description: Type of document
+          type: string
+        mimeType:
+          description: MIME type of document
+          type: string
+        fileUrl:
+          description: URL to document file
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        nvrId: 2001362
+        beslutsId: 100043
+        beslutsstatus: "Gällande"
+        beslutstyp: "Beslut om bildande av Nationalpark"
+        beslutsmyndighet: "Riksdag/Regering"
+        diarienummer: "JODEP 2516/79, 784/82 SNV 203-3207-81"
+        beslutsdatum: "1982-05-06T00:00:00+02:00"
+        gallandedatum: "1982-05-06T00:00:00+02:00"
+        id: 151124
+        namn: "Store mosse Regeringens beslut.pdf"
+        typ: "Beslut"
+        mimeType: "application/pdf"
+        fileUrl: "https://nvpub.vic-metria.nu/handlingar/rest/dokument/151124"
+        atomLink:
+          - {"@rel": "self"}
+          - {"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/beslutsdokument/2001362/G%C3%A4llande/151124"}
+      description: ""
+
+    Foreskriftsomrade:
+      type: object
+      title: Rule
+      properties:
+        objectId:
+          description: Id of rule
+          type: integer
+          format: int64
+        nvrId:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        foreskriftstyp:
+          description: Type of rule
+          type: string
+        foreskriftssubtyp:
+          description: Subtype of rule
+          type: string
+        franDatum:
+          description: Date that the rule is in effect from
+          type: string
+        tillDatum:
+          description: Date that the rule is in effect to
+          type: string
+        areaHa:
+          description: Size of the area affected by the rule
+          type: number
+        foreskriftstypKod:
+          description: Code for the rule
+          type: string
+        foreskriftssubtypKod:
+          description: Code for the rule subtype
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        objectId: 2493200
+        nvrId: 2001362
+        beslutsstatus: Gällande
+        foreskriftstyp: Tillträdesförbud
+        foreskriftssubtyp: Fågel
+        franDatum: 1/3
+        tillDatum: 15/8
+        areaHa: 722.488
+        foreskriftstypKod: 2
+        foreskriftssubtypKod: 2
+        atomLink:
+          - {"@rel": "self"}
+          - {"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/foreskriftsomrade/2001362/G%C3%A4llande/2493200"}
+      description: Area affected by a rule
+
+    Miljomal:
+      type: object
+      title: Environmental objective
+      properties:
+        nvrId:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        namn:
+          description: Name of environmental objective
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        nvrId: 2001362
+        beslutsstatus: Gällande
+        namn: "12. Levande skogar"
+        atomLink:
+          - {"@rel": "self"}
+          - {"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/miljomal/2001362/G%C3%A4llande/12.%20Levande%20skogar"}
+      description: ""
+
+    NmdKlass:
+      type: object
+      title: NMD class
+      properties:
+        nvrId:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        kod:
+          description: NMD class code
+          type: string
+        namn:
+          description: NMD class name
+          type: string
+        areaHa:
+          description: Area in hectares
+          type: number
+        foreskriftstyp:
+          description: Rule type
+          type: string
+        foreskriftstypNamn:
+          description: Rule type name
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        nvrId: 2001362
+        beslutsstatus: Gällande
+        kod: 111
+        namn: "Tallskog utanför våtmark"
+        areaHa: 12345
+        foreskriftstyp: 0
+        foreskriftstypNamn: "Ej foreskrift"
+        atomLink:
+          - {"@rel": "self"}
+          - {"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/nmdklass/2001362/G%C3%A4llande/111"}
+      description: ""
+
+    OmradeNoLinks:
+      type: object
+      title: Site (no links)
+      properties:
+        id:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        namn:
+          description: Name of site
+          type: string
+        skyddstyp:
+          description: Protection type
+          type: string
+        lanAsText:
+          description: Region name(s)
+          type: string
+        kommunerAsText:
+          description: Municipality name(s)
+          type: string
+        beslutstyp:
+          description: Type of decision
+          type: string
+        beslutsdatum:
+          description: Date of decision
+          type: integer
+          format: int32
+        ursprBeslutsdatum:
+          description: Original decision date
+          type: integer
+          format: int32
+        gallandedatum:
+          description: Current decision date
+          type: integer
+          format: int32
+        iucnKategori:
+          description: IUCN category
+          type: string
+        forvaltare:
+          description: Public administration
+          type: string
+        areaHa:
+          description: Area in hecatres
+          type: number
+        landareaHa:
+          description: Land area in hectares
+          type: number
+        vattenareaHa:
+          description: Water area in hectares
+          type: number
+        skogAreaHa:
+          description: Forest area in hectares
+          type: number
+        beslutsmyndighet:
+          description: Authority
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        id: 2001362
+        beslutsstatus: Gällande
+        namn: "Store Mosse"
+        skyddstyp: "Nationalpark"
+        lanAsText: "Jönköpings Län"
+        kommunerAsText: "Gnosjö, Vaggeryd, Värnamo"
+        beslutstyp: "Beslut om bildande av Nationalpark"
+        beslutsdatum: "1982-05-06T00:00:00+02:00"
+        ursprBeslutsdatum: "1982-05-06T00:00:00+02:00"
+        gallandedatum: "1982-05-06T00:00:00+02:00"
+        iucnKategori: "II, Nationalpark (National Park)"
+        forvaltare: "Länsstyrelsen i Jönköpings län"
+        areaHa: 12345
+        landareaHa: 7409.47
+        vattenareaHa: 264.64
+        skogAreaHa: 652.15
+        beslutsmyndighet: "Riksdag/Regering"
+      description: ""
+
+    Omrade:
+      type: object
+      title: Site
+      properties:
+        id:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        namn:
+          description: Name of site
+          type: string
+        skyddstyp:
+          description: Protection type
+          type: string
+        lanAsText:
+          description: Region name(s)
+          type: string
+        kommunerAsText:
+          description: Municipality name(s)
+          type: string
+        beslutstyp:
+          description: Type of decision
+          type: string
+        beslutsdatum:
+          description: Date of decision
+          type: integer
+          format: int32
+        ursprBeslutsdatum:
+          description: Original decision date
+          type: integer
+          format: int32
+        gallandedatum:
+          description: Current decision date
+          type: integer
+          format: int32
+        iucnKategori:
+          description: IUCN category
+          type: string
+        forvaltare:
+          description: Public administration
+          type: string
+        areaHa:
+          description: Area in hecatres
+          type: number
+        landareaHa:
+          description: Land area in hectares
+          type: number
+        vattenareaHa:
+          description: Water area in hectares
+          type: number
+        skogAreaHa:
+          description: Forest area in hectares
+          type: number
+        beslutsmyndighet:
+          description: Authority
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        id: 2001362
+        beslutsstatus: Gällande
+        namn: "Store Mosse"
+        skyddstyp: "Nationalpark"
+        lanAsText: "Jönköpings Län"
+        kommunerAsText: "Gnosjö, Vaggeryd, Värnamo"
+        beslutstyp: "Beslut om bildande av Nationalpark"
+        beslutsdatum: "1982-05-06T00:00:00+02:00"
+        ursprBeslutsdatum: "1982-05-06T00:00:00+02:00"
+        gallandedatum: "1982-05-06T00:00:00+02:00"
+        iucnKategori: "II, Nationalpark (National Park)"
+        forvaltare: "Länsstyrelsen i Jönköpings län"
+        areaHa: 12345
+        landareaHa: 7409.47
+        vattenareaHa: 264.64
+        skogAreaHa: 652.15
+        beslutsmyndighet: "Riksdag/Regering"
+        atomLink: [
+{
+"@rel": "nmdklasser",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande/nmdklasser"
+},
+{
+"@rel": "miljomal",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande/miljomal"
+},
+{
+"@rel": "beslutsdokument",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande/beslutsdokument"
+},
+{
+"@rel": "syften",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande/syften"
+},
+{
+"@rel": "self",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande"
+},
+{
+"@rel": "foreskriftsomraden",
+"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/omrade/2001362/G%C3%A4llande/foreskriftsomraden"
+}
+]
+      description: ""
+
+    Syfte:
+      type: object
+      title: Purpose
+      properties:
+        nvrId:
+          description: NVR-id of site
+          type: string
+        beslutsstatus:
+          description: Decision status
+          type: string
+        id:
+          description: Id of purpose
+          type: string
+        namn:
+          description: Name of purpose
+          type: string
+        beskrivning:
+          description: Description of purpose
+          type: string
+        atomLink:
+          description: ""
+          type: array
+          items:
+            type: object
+      example:
+        nvrId: 2001362
+        beslutsstatus: Gällande
+        id: "2.19.34"
+        namn: "Vårda och bevara värdefulla naturmiljöer"
+        beskrivning: "Liminiska miljöer, Sjö"
+        atomLink:
+          - {"@rel": "self"}
+          - {"@href": "https://nvpub.vic-metria.nu/naturvardsregistret/v2/rest/syfte/2001362/G%C3%A4llande/2.19.34"}
+      description: ""
+
+    Typ:
+      type: object
+      title: Type
+      properties:
+        key:
+          description: ""
+          type: string
+        value:
+          description: ""
+          type: string
+      example:
+        key: key
+        value: value
+      description: Used by value lists
+
+    WktString:
+      type: string
+      description: Geometry in WKT-format with the SWEREF99 TM (EPSG:3006) coordinate system.
+      example: POLYGON  (( 494297.08800000 6997007.55500000, 581252.96300000
+        6997007.55500000, 581252.96300000 7100945.65200000, 494297.08800000
+        7100945.65200000, 494297.08800000 6997007.55500000))
+
+    Beslutsstatus:
+      type: string
+      title: Decision status
+      enum: [Beslutad, Överklagad, Gällande]
+      description: >
+        Status of decision:
+         * `Gällande` = Current
+         * `Beslutad` = Decided
+         * `Överklagad` = Appealed
+      example: Gällande
