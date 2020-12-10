@@ -152,15 +152,21 @@ Our APIs and data are provided "as is" without guarantees concerning potential e
   <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
   <path d="M8 11.33a3.01 3.01 0 0 0 1.236-.83H9a1.99 1.99 0 0 1-1-.268 1.99 1.99 0 0 1-1 .268h-.236c.332.371.756.66 1.236.83z"/>
 </svg></a> </h3>
-<div class="shortcode shortcode--swagger-ui">
-	<iframe
-		src='https://petstore.swagger.io/?url=https://raw.githubusercontent.com/greentechdev/greentechdev.github.io/master/nvr_api.yaml'
-		frameborder="0"
-		scrolling="yes"
-		width="100%"
-		height='1000'>
-	</iframe>
-</div>
+<style>iframe{width:100%}</style>
+<iframe id="swagger-ui" frameBorder="0" scrolling="no" src="/swagger-ui/index.html" >
+</iframe>
+
+<script type="text/javascript" src="/scripts/iframeResizer.min.js"></script>
+<script type="text/javascript">
+  iFrameResize({
+    log         : true,                  
+    checkOrigin : false,
+    sizeWidth   : true,
+    widthCalculationMethod : 'rightMostElement'
+  });
+  var shortcode_url = "https:\/\/petstore.swagger.io\/?url=https:\/\/raw.githubusercontent.com\/greentechdev\/greentechdev.github.io\/master\/nvr_api.yaml";
+  
+</script>
 
 <ul>
 <li><a href="https://raw.githubusercontent.com/greentechdev/greentechdev.github.io/master/nvr_api.yaml">Download OpenAPI specification</a></li>
